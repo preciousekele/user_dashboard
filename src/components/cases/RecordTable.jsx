@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Edit, Trash2, Search, Eye } from "lucide-react";
+import { Edit, Search, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import RecordDetailsModal from "./RecordDetailsModal"; 
+
 const getStatusClass = (status) => {
   switch (status?.toLowerCase()) {
     case "resolved":
@@ -30,6 +32,9 @@ const RecordsTable = ({ records }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredRecords, setFilteredRecords] = useState(records);
 
+  const [selectedRecord, setSelectedRecord] = useState(null); 
+  const [isModalOpen, setIsModalOpen] = useState(false);       
+
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
@@ -45,12 +50,26 @@ const RecordsTable = ({ records }) => {
     setFilteredRecords(filtered);
   };
 
-  // Debugging: Log what we receive
-  console.log("Filtered records in table component:", filteredRecords);
+  // Modal handlers
+  const openModal = (record) => {
+    setSelectedRecord(record);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedRecord(null);
+    setIsModalOpen(false);
+  };
+
+  const handleDelete = (id) => {
+    console.log("Delete record with ID:", id);
+    // Later you can call your delete API here if you want
+    closeModal();
+  };
 
   return (
     <motion.div
-      className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-700 mb-8 w-full"
+      className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg p-6 border border-gray-700 mb-8 w-full"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
@@ -73,85 +92,58 @@ const RecordsTable = ({ records }) => {
 
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-700">
-          <thead className="">
+          <thead>
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                S/N
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                STUDENT NAME
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                MATRIC NUMBER
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                OFFENSE
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                PUNISHMENT
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                DATE
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                STATUS
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                ACTION
-              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">S/N</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Student Name</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Matric Number</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Offense</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Punishment</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Status</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Action</th>
             </tr>
           </thead>
+
           <tbody className="bg-gray-800 divide-y divide-gray-700">
             {filteredRecords.length > 0 ? (
               filteredRecords.map((record, index) => (
-                <tr
-                  key={record.id}
-                  className="hover:bg-gray-700/50 transition-colors"
-                >
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                    {index + 1}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-100">
-                    {record.studentName}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                    {record.matricNumber}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                    {record.offense}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                    {record.punishment}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                    {formatDate(record.createdAt || record.date)}
-                  </td>
+                <tr key={record.id} className="hover:bg-gray-700/50 transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{index + 1}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-100">{record.studentName}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{record.matricNumber}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{record.offense}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{record.punishment}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{formatDate(record.createdAt || record.date)}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs ${getStatusClass(
-                        record.status
-                      )}`}
-                    >
+                    <span className={`px-2 py-1 rounded-full text-xs ${getStatusClass(record.status)}`}>
                       {record.status}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300 flex space-x-2">
+                    {/* Edit button */}
                     <Link
                       to={`/edit-record/${record.id}`}
-                      state={{ record }} // 👈 send the whole record object as state
+                      state={{ record }}
                       className="text-blue-500 hover:text-blue-600"
                     >
                       <Edit className="h-5 w-5" />
                     </Link>
-                    <button className="text-gray-300 hover:text-gray-600">
-                    <Eye className="h-5 w-6.5" />
-                  </button> 
+
+                    {/* Eye/View button */}
+                    <button
+                      onClick={() => openModal(record)}
+                      className="text-gray-300 hover:text-gray-600"
+                      aria-label="View Details"
+                    >
+                      <Eye className="h-5 w-5" />
+                    </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="px-6 py-4 text-center text-gray-300">
+                <td colSpan="8" className="px-6 py-4 text-center text-gray-300">
                   No records found
                 </td>
               </tr>
@@ -159,6 +151,14 @@ const RecordsTable = ({ records }) => {
           </tbody>
         </table>
       </div>
+
+      {/* Record Details Modal */}
+      <RecordDetailsModal
+        record={selectedRecord}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onDelete={handleDelete}
+      />
     </motion.div>
   );
 };

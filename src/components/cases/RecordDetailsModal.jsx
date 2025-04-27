@@ -68,7 +68,7 @@ const RecordDetailsModal = ({
         {/* Modal content */}
         <div 
           ref={modalRef}
-          className="relative bg-gray-800 border border-gray-700 rounded-lg p-6 max-w-2xl w-full shadow-xl"
+          className="relative bg-gray-800 border-gray-700 p-6 max-w-2xl w-full shadow-xl"
         >
           {/* Header */}
           <div className="flex justify-between items-start mb-6">
@@ -91,23 +91,19 @@ const RecordDetailsModal = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">Offense</h3>
-              <p className="text-lg text-gray-200">{record.offense}</p>
+              <p className="text-l text-gray-200">{record.offense}</p>
             </div>
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">Punishment</h3>
-              <p className="text-lg text-gray-200">{record.punishment}</p>
+              <p className="text-l text-gray-200">{record.punishment}</p>
             </div>
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">Date</h3>
-              <p className="text-lg text-gray-200">{record.date}</p>
+              <p className="text-l text-gray-200">{record.date}</p>
             </div>
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">Status</h3>
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                record.status === "Resolved" ? "bg-green-500" :
-                record.status === "Pending" ? "bg-yellow-500" :
-                "bg-blue-500"
-              }`}>
+              <span className={` rounded-full text-sm font-medium`}>
                 {record.status}
               </span>
             </div>
@@ -116,20 +112,20 @@ const RecordDetailsModal = ({
           {/* Action buttons */}
           <div className="flex justify-end gap-3 border-t border-gray-700 pt-4">
             <button
-              onClick={handleDeleteClick}
-              className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-md transition-colors"
-              aria-label="Delete record"
-            >
-              <Trash2 className="w-4 h-4" />
-              Delete
-            </button>
-            <button
               onClick={handleEdit}
               className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md transition-colors"
               aria-label="Edit record"
             >
               <Edit className="w-4 h-4" />
               Edit
+            </button>
+            <button
+              onClick={handleDeleteClick}
+              className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-md transition-colors"
+              aria-label="Delete record"
+            >
+              <Trash2 className="w-4 h-4" />
+              Delete
             </button>
           </div>
         </div>
