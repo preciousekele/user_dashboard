@@ -13,15 +13,12 @@ import {
 
 const COLORS = ["#6366F1", "#8B5CF6", "#EC4899", "#10B981", "#F59E0B"];
 
-const CASES_DATA = [
-  { name: 'Exam Misconduct', value: 40 },
-  { name: 'Drug Abuse', value: 25 },
-  { name: 'Immorality', value: 20 },
-  { name: 'Combat', value: 15 },
-  { name: 'Theft', value: 15 }
-];
+const CasesChart = ({ offenses }) => {
+  // Transform the offenses object into an array format that Recharts can use
+  const casesData = offenses ? 
+    Object.entries(offenses).map(([name, value]) => ({ name, value })) : 
+    [];
 
-const CasesChart = () => {
   return (
     <motion.div
       className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 lg:col-span-2 border border-gray-700"
@@ -33,29 +30,35 @@ const CasesChart = () => {
         Cases Visualization
       </h2>
       <div className="h-80">
-        <ResponsiveContainer>
-          <BarChart data={CASES_DATA}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#4B5563" />
-            <XAxis dataKey="name" stroke="#9CA3AF" />
-            <YAxis stroke="#9CA3AF" />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "rgba(31, 41, 55, 0.8)",
-                borderColor: "#4B5563",
-              }}
-              itemStyle={{ color: "#E5E7EB" }}
-            />
-            <Legend />
-            <Bar dataKey={"value"} fill="#8884D8">
-              {CASES_DATA.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
+        {casesData.length > 0 ? (
+          <ResponsiveContainer>
+            <BarChart data={casesData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#4B5563" />
+              <XAxis dataKey="name" stroke="#9CA3AF" />
+              <YAxis stroke="#9CA3AF" />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "rgba(31, 41, 55, 0.8)",
+                  borderColor: "#4B5563",
+                }}
+                itemStyle={{ color: "#E5E7EB" }}
+              />
+              <Legend />
+              <Bar dataKey="value" fill="#8884D8">
+                {casesData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="flex items-center justify-center h-full text-gray-400">
+            No data available
+          </div>
+        )}
       </div>
     </motion.div>
   );

@@ -1,1 +1,40 @@
 @import "tailwindcss";
+@import 'boxicons/css/boxicons.min.css';
+
+/* app.js for admin original
+import { Route, Routes } from "react-router-dom";
+import OverviewPage from "./pages/admindashboard/Overview";
+import RecordPage from "./pages/admindashboard/RecordsPage";
+import Sidebar from "./components/common/Sidebar";
+import UsersPage from "./pages/admindashboard/UsersPage";
+import AnalyticsPage from "./pages/admindashboard/AnalyticsPage";
+import SettingsPages from "./pages/admindashboard/SettingsPages";
+import AddRecordForm from "./components/cases/AddRecordForm";
+import EditRecordForm from "./components/cases/EditRecordForm";
+function App() {
+  return (
+    <div className="flex h-screen bg-gray-900 text-gray-100 overflow-hidden">
+      {/* BG */
+      /* <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 opacity-80" />
+        <div className="absolute inset-0 backdrop-blur-sm" />
+      </div>
+
+      {/* above the route because it should be seen on all pages */
+/* 
+      <Sidebar />
+      <Routes>
+        <Route index element={<OverviewPage />} />
+        <Route path="/records" element={<RecordPage />} />
+        <Route path="/users" element={<UsersPage />} />
+        {/* <Route path="/orders" element={<OrdersPage />} /> */
+        /* <Route path="/analytics" element={<AnalyticsPage />} />
+        <Route path="/settings" element={<SettingsPages />} />
+        <Route path="/add-record" element={<AddRecordForm />} />
+        <Route path="/edit-record/:id" element={<EditRecordForm />} />
+      </Routes>
+    </div>
+  );
+} */
+/* 
+export default App; */ 

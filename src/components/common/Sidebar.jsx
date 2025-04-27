@@ -15,7 +15,7 @@ import React from 'react'
 const SIDEBAR_ITEMS = [
   { name: "Overview",icon: BarChart2, color: "#6366f1", href: "/"},
   { name: "Records", icon: FileSearch , color: "#8B5CF6", href: "/records" },
-  { name: "Analytics", icon: TrendingUp, color: "#3B82F6", href: "/analytics" },
+  // { name: "Analytics", icon: TrendingUp, color: "#3B82F6", href: "/analytics" },
   { name: "Users", icon: Users, color: "#EC4899", href: "/users" },
   { name: "Settings", icon: Settings, color: "#6EE7B7", href: "/settings" },
 ];

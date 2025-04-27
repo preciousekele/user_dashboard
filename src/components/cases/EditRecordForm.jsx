@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Pencil, Save, X } from "lucide-react"; // Added Save and X icons
+import { updateRecord } from "../../services/recordService";
 
 const EditRecordForm = () => {
   const location = useLocation();
@@ -28,12 +29,29 @@ const EditRecordForm = () => {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Updated record:", formData);
-    // Add API call here
-    setIsEditing(false);
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No authentication token found!");
+        return;
+      }
+  
+      const { date, ...dataWithoutDate } = formData; // Ignore date for update
+      await updateRecord(record.id, dataWithoutDate, token);
+  
+      console.log("Record updated successfully!");
+      setIsEditing(false);
+  
+      // Go back to records page after update
+      navigate("/records");
+  
+    } catch (error) {
+      console.error("Error updating record:", error);
+    }
   };
+  
 
   const handleCancel = () => {
     setIsEditing(false);
@@ -169,7 +187,7 @@ const EditRecordForm = () => {
             <input
               type="date"
               id="date"
-              value={formData.date}
+              value={formData.date ? formData.date.slice(0, 10) : ""}
               onChange={handleChange}
               className="w-full p-2 rounded-md bg-gray-700 text-gray-300 focus:outline-none focus:ring-1 focus:ring-indigo-500"
               required

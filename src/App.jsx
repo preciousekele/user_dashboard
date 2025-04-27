@@ -1,37 +1,83 @@
-import { Route, Routes } from "react-router-dom"
-import OverviewPage from "./pages/Overview"
-import ProductsPage from "./pages/RecordsPage"
-import Sidebar  from './components/common/Sidebar'
-import UsersPage from "./pages/UsersPage"
-import AnalyticsPage from "./pages/AnalyticsPage"
-import SettingsPages from "./pages/SettingsPages"
-import AddRecordForm from "./components/cases/AddRecordForm"
-import EditRecordForm from "./components/cases/EditRecordForm"
-function App() {
-  return (
-    <div className='flex h-screen bg-gray-900 text-gray-100 overflow-hidden'>
-  
-    {/* bg1 */}
-    <div className="fixed inset-0 z-0">
-    <div className="absolute inset-0 bg-gradient-to-br"/>
-    <div className="absolute inset-0" />
-    </div>
-  
-    {/* above the route because it should be seen on all pages */}
+import { Route, Routes, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-    <Sidebar />
-    <Routes>
-      <Route index element={<OverviewPage />} />
-      <Route path="/records" element={<ProductsPage />} />
-      <Route path="/users" element={<UsersPage />} />
-      {/* <Route path="/orders" element={<OrdersPage />} /> */}
-      <Route path="/analytics" element={<AnalyticsPage />} />
-      <Route path="/settings" element={<SettingsPages />} />
-      <Route path="/add-record" element={<AddRecordForm />} />
-      <Route path="/edit-record/:id" element={<EditRecordForm />} />
-    </Routes>
+import OverviewPage from "./pages/admindashboard/Overview";
+import Sidebar from "./components/common/Sidebar";
+import UsersPage from "./pages/admindashboard/UsersPage";
+import AnalyticsPage from "./pages/admindashboard/AnalyticsPage";
+import SettingsPages from "./pages/admindashboard/SettingsPages";
+import AddRecordForm from "./components/cases/AddRecordForm";
+import EditRecordForm from "./components/cases/EditRecordForm";
+import RecordsPage from "./pages/admindashboard/RecordsPage";
+function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Try to get from URL params first (for initial login)
+    const params = new URLSearchParams(window.location.search);
+    const tokenFromURL = params.get('token');
+    const userFromURL = params.get('user');
+    
+    if (tokenFromURL && userFromURL) {
+      // Store in localStorage for future use
+      localStorage.setItem("token", tokenFromURL);
+      localStorage.setItem("user", userFromURL);
+      // Clean URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+      setIsAuthenticated(true);
+      setIsLoading(false);
+      return;
+    }
+    
+    // Regular localStorage check for returning users
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    console.log("ADMIN APP: Reading token:", token);
+    console.log("ADMIN APP: Reading user:", user);
+    if (token && user.role === "admin") {
+      setIsAuthenticated(true);
+    }
+    setIsLoading(false);
+  }, []);
+  // Show loading while checking authentication
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+
+  // Redirect to login if not authenticated
+  if (!isAuthenticated) {
+    window.location.href = "http://localhost:3000/login";
+    return null;
+  }
+
+  return (
+    <div className="flex h-screen bg-gray-900 text-gray-100 overflow-hidden">
+      {/* bg1 */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br" />
+        <div className="absolute inset-0" />
+      </div>
+
+      {/* above the route because it should be seen on all pages */}
+
+      <Sidebar />
+      <Routes>
+        <Route index element={<OverviewPage />} />
+        <Route path="/records" element={<RecordsPage />} />
+        <Route path="/users" element={<UsersPage />} />
+        {/* <Route path="/orders" element={<OrdersPage />} /> */}
+        <Route path="/analytics" element={<AnalyticsPage />} />
+        <Route path="/settings" element={<SettingsPages />} />
+        <Route path="/add-record" element={<AddRecordForm />} />
+        <Route path="/edit-record/:id" element={<EditRecordForm />} />
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
