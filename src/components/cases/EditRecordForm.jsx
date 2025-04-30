@@ -66,7 +66,7 @@ const EditRecordForm = () => {
   };
 
   return (
-    <div className="bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-lg mx-auto relative">
+    <div className="bg-gray-800 p-8 shadow-lg w-full max-w-lg mx-auto relative">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold text-gray-100">
           {isEditing ? "Edit Record" : "Record Details"}

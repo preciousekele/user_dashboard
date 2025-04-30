@@ -1,6 +1,6 @@
 import { X, AlertTriangle } from "lucide-react";
 
-const DeleteConfirmation = ({ isOpen, onClose, onConfirm, recordName }) => {
+const DeleteConfirmation = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
 
   return (

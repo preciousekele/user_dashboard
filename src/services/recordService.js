@@ -97,16 +97,20 @@ export const deleteRecord = async (id, token) => {
       },
     });
 
+    // ✅ Only parse once and return
+    const data = await response.json();
+
     if (!response.ok) {
-      throw new Error(`Error deleting record: ${response.status}`);
+      throw new Error(data.message || `Error deleting record`);
     }
 
-    return await response.json();
+    return data;
   } catch (error) {
     console.error("Error in deleteRecord service:", error);
     throw error;
   }
 };
+
 
 /**
  * Fetch statistics for the dashboard

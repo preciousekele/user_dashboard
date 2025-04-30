@@ -25,6 +25,10 @@ const RecordsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const handleDeleteRecord = (deletedId) => {
+    setRecords(prev => prev.filter(record => record.id !== deletedId));
+  };
+  
   // Fetch stats and records on component mount
   useEffect(() => {
     const loadData = async () => {
@@ -144,7 +148,9 @@ const RecordsPage = () => {
             <p>No records found. Add a new record to get started.</p>
           </div>
         ) : (
-          <RecordsTable records={records} />
+          <RecordsTable records={records} 
+          onDeleteRecord={handleDeleteRecord}
+          />
         )}
       </main>
     </div>

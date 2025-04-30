@@ -43,7 +43,7 @@ function App() {
   // Show loading while checking authentication
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center  bg-gray-900 text-gray-100 justify-center h-screen">
         Loading...
       </div>
     );
@@ -64,6 +64,10 @@ function App() {
       </div>
 
       {/* above the route because it should be seen on all pages */}
+      {/* add toaster to the react: npm install react-hot-toast
+        installing this when there's network
+      */}
+      {/* <Toaster position="top-right" reverseOrder={false} /> */}
 
       <Sidebar />
       <Routes>
