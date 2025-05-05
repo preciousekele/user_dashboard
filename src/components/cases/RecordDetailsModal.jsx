@@ -1,5 +1,5 @@
 import { X, Edit, Trash2 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteRecord } from "../../services/recordService";
 
