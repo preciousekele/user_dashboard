@@ -11,6 +11,9 @@ import EditRecordForm from "./components/cases/EditRecordForm";
 import RecordsPage from "./pages/admindashboard/RecordsPage";
 import UserActivityLog from "./components/users/userActivityLog";
 import EditUserForm from "./components/users/EditUserForm";
+import EditProfile from "./components/settings/EditUserProfile";
+import ChangePassword from "./components/settings/EditPassword";
+import Profile from "./components/settings/Profile";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -83,6 +86,10 @@ function App() {
         <Route path="/edit-record/:id" element={<EditRecordForm />} />
         <Route path="/users/:userId/activity" element={<UserActivityLog />} />
         <Route path="/edit-user/:id" element={<EditUserForm />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/settings" element={<Profile />} />
+        
       </Routes>
     </div>
   );
