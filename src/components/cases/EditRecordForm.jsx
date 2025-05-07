@@ -38,7 +38,7 @@ const EditRecordForm = () => {
         return;
       }
   
-      const { date, ...dataWithoutDate } = formData; // Ignore date for update
+      const { ...dataWithoutDate } = formData; // Ignore date for update
       await updateRecord(record.id, dataWithoutDate, token);
   
       console.log("Record updated successfully!");

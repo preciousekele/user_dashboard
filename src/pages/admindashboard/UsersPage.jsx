@@ -4,10 +4,6 @@ import Header from "../../components/common/Header";
 import { motion } from "framer-motion";
 import StatCard from "../../components/common/StatCard";
 import UserTable from "../../components/users/UserTable";
-import UserGrowthChart from "../../components/users/UserGrowthChart";
-import UserActivityHeatmap from "../../components/users/UserActivityHeatmap";
-import UserDemographicsChart from "../../components/users/UserDemographicsChart";
-
 const UsersPage = () => {
   const [stats, setStats] = useState({
     totalUsers: 0,
@@ -134,11 +130,11 @@ const UsersPage = () => {
             <UserTable />
 
             {/* CHARTS */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+            {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
               <UserGrowthChart />
               <UserActivityHeatmap />
               <UserDemographicsChart />
-            </div>
+            </div> */}
           </>
         )}
       </main>

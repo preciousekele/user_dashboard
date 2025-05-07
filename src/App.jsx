@@ -9,6 +9,8 @@ import SettingsPages from "./pages/admindashboard/SettingsPages";
 import AddRecordForm from "./components/cases/AddRecordForm";
 import EditRecordForm from "./components/cases/EditRecordForm";
 import RecordsPage from "./pages/admindashboard/RecordsPage";
+import UserActivityLog from "./components/users/userActivityLog";
+import EditUserForm from "./components/users/EditUserForm";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -79,6 +81,8 @@ function App() {
         <Route path="/settings" element={<SettingsPages />} />
         <Route path="/add-record" element={<AddRecordForm />} />
         <Route path="/edit-record/:id" element={<EditRecordForm />} />
+        <Route path="/users/:userId/activity" element={<UserActivityLog />} />
+        <Route path="/edit-user/:id" element={<EditUserForm />} />
       </Routes>
     </div>
   );
