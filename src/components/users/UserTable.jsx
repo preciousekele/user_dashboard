@@ -16,8 +16,8 @@ const UserTable = () => {
   // Use the navigate hook from react-router-dom
   const navigate = useNavigate();
 
-    const [selectedUser, setSelectedUser] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Fetch users on component mount
   useEffect(() => {
@@ -63,8 +63,12 @@ const UserTable = () => {
   };
 
   const handleUserDeleted = (deletedUserId) => {
-    setUsers(prevUsers => prevUsers.filter(user => user.id !== deletedUserId));
-    setFilteredUsers(prevUsers => prevUsers.filter(user => user.id !== deletedUserId));
+    setUsers((prevUsers) =>
+      prevUsers.filter((user) => user.id !== deletedUserId)
+    );
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.id !== deletedUserId)
+    );
   };
 
   if (loading) {
@@ -98,17 +102,17 @@ const UserTable = () => {
     );
   }
 
-    // Modal handlers
-    const openModal = (user) => {
-      setSelectedUser(user);
-      setIsModalOpen(true);
-    };
-  
-    const closeModal = () => {
-      setSelectedUser(null);
-      setIsModalOpen(false);
-    };
-  
+  // Modal handlers
+  const openModal = (user) => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedUser(null);
+    setIsModalOpen(false);
+  };
+
   return (
     <motion.div
       className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg p-6 border border-gray-700"
@@ -170,8 +174,16 @@ const UserTable = () => {
                       {index + 1}
                     </td>
                     <td
-                      className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-100 hover:text-gray-400 cursor-pointer"
-                      onClick={() => navigate(`/users/${user.id}/activity`)}
+                      className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${
+                        user.role === "admin"
+                          ? "text-gray-100 hover:text-gray-400 cursor-pointer"
+                          : "text-gray-300"
+                      }`}
+                      onClick={() => {
+                        if (user.role === "admin") {
+                          navigate(`/users/${user.id}/activity`);
+                        }
+                      }}
                     >
                       {user.name}
                     </td>
@@ -201,13 +213,13 @@ const UserTable = () => {
                     </td>
 
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                    <button
-                      onClick={() => openModal(user)}
-                      className="text-gray-300 hover:text-gray-600"
-                      aria-label="View Details"
-                    >
-                      <Eye className="h-5 w-5" />
-                    </button>
+                      <button
+                        onClick={() => openModal(user)}
+                        className="text-gray-300 hover:text-gray-600"
+                        aria-label="View Details"
+                      >
+                        <Eye className="h-5 w-5" />
+                      </button>
                     </td>
                   </tr>
                 );
@@ -222,12 +234,12 @@ const UserTable = () => {
           </tbody>
         </table>
       </div>
-       <UserDetailsModal
-              user={selectedUser}
-              isOpen={isModalOpen}
-              onClose={closeModal}
-              onDelete={handleUserDeleted}
-            />
+      <UserDetailsModal
+        user={selectedUser}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onDelete={handleUserDeleted}
+      />
     </motion.div>
   );
 };
