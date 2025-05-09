@@ -154,19 +154,11 @@ const RecordsTable = ({ records, onDeleteRecord }) => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300 flex space-x-2">
-                    {/* Edit button */}
-                    <Link
-                      to={`/edit-record/${record.id}`}
-                      state={{ record }}
-                      className="text-blue-500 hover:text-blue-600"
-                    >
-                      <Edit className="h-5 w-5" />
-                    </Link>
 
                     {/* Eye/View button */}
                     <button
                       onClick={() => openModal(record)}
-                      className="text-gray-300 hover:text-gray-600"
+                      className="text-gray-300 hover:text-gray-600 ml-4"
                       aria-label="View Details"
                     >
                       <Eye className="h-5 w-5" />

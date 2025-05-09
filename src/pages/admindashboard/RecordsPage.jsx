@@ -115,15 +115,7 @@ const RecordsPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <div className="flex justify-end mb-6">
-            <Link
-              to="/add-record"
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md transition-colors duration-200"
-            >
-              <FilePlus2 className="h-4 w-4" />
-              Add Record
-            </Link>
-          </div>
+  
         </motion.div>
 
         {loading ? (

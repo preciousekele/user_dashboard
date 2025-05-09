@@ -21,9 +21,9 @@ function App() {
   useEffect(() => {
     // Try to get from URL params first (for initial login)
     const params = new URLSearchParams(window.location.search);
-    const tokenFromURL = params.get('token');
-    const userFromURL = params.get('user');
-    
+    const tokenFromURL = params.get("token");
+    const userFromURL = params.get("user");
+
     if (tokenFromURL && userFromURL) {
       // Store in localStorage for future use
       localStorage.setItem("token", tokenFromURL);
@@ -34,13 +34,13 @@ function App() {
       setIsLoading(false);
       return;
     }
-    
+
     // Regular localStorage check for returning users
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user") || "{}");
-    console.log("ADMIN APP: Reading token:", token);
-    console.log("ADMIN APP: Reading user:", user);
-    if (token && user.role === "admin") {
+    console.log("USER APP: Reading token:", token);
+    console.log("USER APP: Reading user:", user);
+    if (token && user.role === "user") {
       setIsAuthenticated(true);
     }
     setIsLoading(false);
@@ -89,7 +89,6 @@ function App() {
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/settings" element={<Profile />} />
-        
       </Routes>
     </div>
   );

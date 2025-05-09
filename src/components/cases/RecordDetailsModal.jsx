@@ -1,15 +1,11 @@
 import { X, Edit, Trash2 } from "lucide-react";
 import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { deleteRecord } from "../../services/recordService";
 
 const RecordDetailsModal = ({
   record,
   isOpen,
   onClose,
-  onDelete // Parent passes this to refresh UI
 }) => {
-  const navigate = useNavigate();
   const modalRef = useRef(null);
 
   // Close modal on outside click or Escape key
@@ -38,43 +34,6 @@ const RecordDetailsModal = ({
       document.body.style.overflow = "auto";
     };
   }, [isOpen, onClose]);
-
-  // Navigate to Edit form
-  const handleEdit = () => {
-    navigate(`/edit-record/${record.id}`, { state: { record } });
-    onClose(); // Close modal after navigating
-  };
-
-  // Confirm and process deletion
-  const confirmDelete = async () => {
-    if (!window.confirm("ARE YOU SURE YOU WANT TO PERMANENTLY DELETE THIS RECORD? ")) return;
-
-    try {
-      console.log("Confirm delete called for record:", record.id);
-
-      const token = localStorage.getItem("token");
-      if (!token) {
-        console.error("No token found!");
-        return;
-      }
-      console.log("Token found:", token); // Log the token for debugging
-
-      // Actually call the delete service
-      const response = await deleteRecord(record.id, token);
-      console.log("Delete response:", response); // Log the response from delete service
-
-      // Assuming deletion was successful, handle UI update
-      if (onDelete) {
-        console.log("Calling onDelete callback...");
-        onDelete(record.id);
-      }
-      onClose(); // close the details modal
-
-    } catch (error) {
-      console.error("Error deleting record:", error);
-    }
-  };
-
   if (!isOpen || !record) return null;
 
   return (
@@ -126,27 +85,6 @@ const RecordDetailsModal = ({
                 {record.status}
               </span>
             </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex justify-end gap-3 border-t border-gray-700 pt-4">
-            <button
-              onClick={handleEdit}
-              className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md transition-colors"
-              aria-label="Edit record"
-            >
-              <Edit className="w-4 h-4" />
-              Edit
-            </button>
-            <button
-              onClick={confirmDelete}
-              className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-md transition-colors"
-              aria-label="Delete record"
-            >
-              <Trash2 className="w-4 h-4" />
-              Delete
-            </button>
-
           </div>
         </div>
       </div>

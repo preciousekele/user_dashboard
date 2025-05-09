@@ -10,7 +10,7 @@ export default defineConfig({
   ],
   server: {
     host: 'localhost', // Explicit host
-    port: 3001,       // Explicit port
+    port: 3002,       // Explicit port
     strictPort: true, // Don't try other ports if 5173 is taken
     open: true        // Automatically open browser
   },
