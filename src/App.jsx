@@ -1,14 +1,14 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import OverviewPage from "./pages/admindashboard/Overview";
+import OverviewPage from "./pages/userdashboard/Overview";
 import Sidebar from "./components/common/Sidebar";
-import UsersPage from "./pages/admindashboard/UsersPage";
-import AnalyticsPage from "./pages/admindashboard/AnalyticsPage";
-import SettingsPages from "./pages/admindashboard/SettingsPages";
+import UsersPage from "./pages/userdashboard/UsersPage";
+import AnalyticsPage from "./pages/userdashboard/AnalyticsPage";
+import SettingsPages from "./pages/userdashboard/SettingsPages";
 import AddRecordForm from "./components/cases/AddRecordForm";
 import EditRecordForm from "./components/cases/EditRecordForm";
-import RecordsPage from "./pages/admindashboard/RecordsPage";
+import RecordsPage from "./pages/userdashboard/RecordsPage";
 import UserActivityLog from "./components/users/userActivityLog";
 import EditUserForm from "./components/users/EditUserForm";
 import EditProfile from "./components/settings/EditUserProfile";
