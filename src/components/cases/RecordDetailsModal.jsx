@@ -1,11 +1,7 @@
 import { X, Edit, Trash2 } from "lucide-react";
 import { useEffect, useRef } from "react";
 
-const RecordDetailsModal = ({
-  record,
-  isOpen,
-  onClose,
-}) => {
+const RecordDetailsModal = ({ record, isOpen, onClose }) => {
   const modalRef = useRef(null);
 
   // Close modal on outside click or Escape key
@@ -68,11 +64,21 @@ const RecordDetailsModal = ({
           {/* Record Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div>
-              <h3 className="text-sm font-medium text-gray-400 mb-1">Offense</h3>
+              <h3 className="text-sm font-medium text-gray-400 mb-1">
+                Department
+              </h3>
+              <p className="text-lg text-gray-200">{record.department}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-gray-400 mb-1">
+                Offense
+              </h3>
               <p className="text-lg text-gray-200">{record.offense}</p>
             </div>
             <div>
-              <h3 className="text-sm font-medium text-gray-400 mb-1">Punishment</h3>
+              <h3 className="text-sm font-medium text-gray-400 mb-1">
+                Punishment
+              </h3>
               <p className="text-lg text-gray-200">{record.punishment}</p>
             </div>
             <div>

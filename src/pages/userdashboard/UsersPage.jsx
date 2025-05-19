@@ -64,7 +64,6 @@ const UsersPage = () => {
       }
     };
   
-    // Run immediately and then every 2 minutes
     updateLastSeen();
     const interval = setInterval(updateLastSeen, 2 * 60 * 1000);
   

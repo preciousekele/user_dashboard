@@ -3,14 +3,9 @@ import { useEffect, useState } from "react";
 
 import OverviewPage from "./pages/userdashboard/Overview";
 import Sidebar from "./components/common/Sidebar";
-import UsersPage from "./pages/userdashboard/UsersPage";
 import AnalyticsPage from "./pages/userdashboard/AnalyticsPage";
 import SettingsPages from "./pages/userdashboard/SettingsPages";
-import AddRecordForm from "./components/cases/AddRecordForm";
-import EditRecordForm from "./components/cases/EditRecordForm";
 import RecordsPage from "./pages/userdashboard/RecordsPage";
-import UserActivityLog from "./components/users/userActivityLog";
-import EditUserForm from "./components/users/EditUserForm";
 import EditProfile from "./components/settings/EditUserProfile";
 import ChangePassword from "./components/settings/EditPassword";
 import Profile from "./components/settings/Profile";
@@ -34,7 +29,7 @@ function App() {
       setIsLoading(false);
       return;
     }
-
+    
     // Regular localStorage check for returning users
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -78,14 +73,8 @@ function App() {
       <Routes>
         <Route index element={<OverviewPage />} />
         <Route path="/records" element={<RecordsPage />} />
-        <Route path="/users" element={<UsersPage />} />
-        {/* <Route path="/orders" element={<OrdersPage />} /> */}
         <Route path="/analytics" element={<AnalyticsPage />} />
         <Route path="/settings" element={<SettingsPages />} />
-        <Route path="/add-record" element={<AddRecordForm />} />
-        <Route path="/edit-record/:id" element={<EditRecordForm />} />
-        <Route path="/users/:userId/activity" element={<UserActivityLog />} />
-        <Route path="/edit-user/:id" element={<EditUserForm />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/settings" element={<Profile />} />
