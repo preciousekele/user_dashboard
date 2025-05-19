@@ -1,5 +1,6 @@
-import { X, Edit, Trash2 } from "lucide-react";
+import { X, Edit, Trash2, Download } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { downloadRecordPDF } from "../../utils/pdfUtils";
 
 const RecordDetailsModal = ({ record, isOpen, onClose }) => {
   const modalRef = useRef(null);
@@ -91,6 +92,16 @@ const RecordDetailsModal = ({ record, isOpen, onClose }) => {
                 {record.status}
               </span>
             </div>
+          </div>
+
+          <div className="flex justify-end gap-3 border-t border-gray-700 pt-4">
+            <button
+              onClick={() => downloadRecordPDF(record)}
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-md transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              PDF
+            </button>
           </div>
         </div>
       </div>
