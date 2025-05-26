@@ -1,4 +1,4 @@
-import { HashRouter as Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import OverviewPage from "./pages/userdashboard/Overview";
@@ -8,6 +8,7 @@ import SettingsPages from "./pages/userdashboard/SettingsPages";
 import RecordsPage from "./pages/userdashboard/RecordsPage";
 import EditProfile from "./components/settings/EditUserProfile";
 import ChangePassword from "./components/settings/EditPassword";
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -39,10 +40,11 @@ function App() {
     }
     setIsLoading(false);
   }, []);
+
   // Show loading while checking authentication
   if (isLoading) {
     return (
-      <div className="flex items-center  bg-gray-900 text-gray-100 justify-center h-screen">
+      <div className="flex items-center bg-gray-900 text-gray-100 justify-center h-screen">
         Loading...
       </div>
     );
@@ -55,24 +57,26 @@ function App() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-900 text-gray-100 overflow-hidden">
-      {/* bg1 */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br" />
-        <div className="absolute inset-0" />
-      </div>
+    <HashRouter>
+      <div className="flex h-screen bg-gray-900 text-gray-100 overflow-hidden">
+        {/* bg1 */}
+        <div className="fixed inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-br" />
+          <div className="absolute inset-0" />
+        </div>
 
-      <Sidebar />
-      <Routes>
-        <Route index element={<OverviewPage />} />
-        <Route path="/records" element={<RecordsPage />} />
-        <Route path="/analytics" element={<AnalyticsPage />} />
-        <Route path="/settings" element={<SettingsPages />} />
-        <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="/change-password" element={<ChangePassword />} />
-        <Route path="/settingspage" element={<SettingsPages />} />
-      </Routes>
-    </div>
+        <Sidebar />
+        <Routes>
+          <Route index element={<OverviewPage />} />
+          <Route path="/records" element={<RecordsPage />} />
+          <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/settings" element={<SettingsPages />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/settingspage" element={<SettingsPages />} />
+        </Routes>
+      </div>
+    </HashRouter>
   );
 }
 
