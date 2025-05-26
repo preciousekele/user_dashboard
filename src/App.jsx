@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate } from "react-router-dom";
+import { HashRouter as Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import OverviewPage from "./pages/userdashboard/Overview";
@@ -8,7 +8,6 @@ import SettingsPages from "./pages/userdashboard/SettingsPages";
 import RecordsPage from "./pages/userdashboard/RecordsPage";
 import EditProfile from "./components/settings/EditUserProfile";
 import ChangePassword from "./components/settings/EditPassword";
-import Profile from "./components/settings/Profile";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
