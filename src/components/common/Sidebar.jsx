@@ -48,7 +48,8 @@ const Sidebar = () => {
     setShowLogoutModal(false);
     
     // 4. Redirect to home page
-    window.location.href = "http://localhost:3000/";
+    //pushed to github, this would be changed
+    window.location.href = "https://preciousekele.github.io/sdars_frontend/#/login";
   };
 
   const handleLogoutCancel = () => {
