@@ -137,7 +137,7 @@ const RecordsPage = () => {
           </div>
         ) : records.length === 0 ? (
           <div className="text-center py-10 text-gray-300">
-            <p>No records found. Add a new record to get started.</p>
+            <p>No records found.</p>
           </div>
         ) : (
           <RecordsTable records={records} 
