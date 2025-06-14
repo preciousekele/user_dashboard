@@ -52,7 +52,7 @@ function App() {
 
   // Redirect to login if not authenticated
   if (!isAuthenticated) {
-    window.location.href = "http://localhost:3000/login";
+    window.location.href = "https://mcu-sdars.vercel.app/#/login";
     return null;
   }
 
